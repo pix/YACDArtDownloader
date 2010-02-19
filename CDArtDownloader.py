@@ -50,6 +50,7 @@ def cleanAlbum(artist, album):
 
 
 def grabArtists():
+    print "grabArtists()"
     artists = dict()
     dom = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=IPHu87TGbu65ONB8&t=artists")
 
@@ -61,6 +62,7 @@ def grabArtists():
     return artists
 
 def grabAlbums(artist, artistId):
+    print "grabAlbums("+artist+")"
     albums = dict()
     domAlbum = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=IPHu87TGbu65ONB8&t=cdarts&id_artist=" + artistId)
     cdarts = domAlbum.getElementsByTagName("cdart")
@@ -73,12 +75,12 @@ artists = grabArtists()
 
 
 c = conn.cursor()
-c.execute('select * from artist')
+c.execute('select * from artist order by strArtist')
 for row in c:
     try:
 
         value = artists[cleanName(row['strArtist'])]
-	albums = grabAlbums(row['strArtist'], value)
+        albums = grabAlbums(row['strArtist'], value)
 
 
         c2 = conn.cursor()
@@ -87,10 +89,10 @@ for row in c:
         for row2 in c2:
             try:
                 url = albums[cleanAlbum(row['strArtist'], row2["strAlbum"])]
-		filename = row['strArtist']+"-"+row2["strAlbum"]+".png"
-		path = os.path.join(sys.argv[2], filename)
+                filename = row['strArtist']+"-"+row2["strAlbum"]+".png"
+                path = os.path.join(sys.argv[2], filename)
 
-		if not os.path.exists(path):
+                if not os.path.exists(path):
                     print "Found: " + row['strArtist'] + " " + row2["strAlbum"]
                     urllib.urlretrieve(url, path)
             except KeyError:
