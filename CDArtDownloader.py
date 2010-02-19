@@ -5,6 +5,8 @@ import re, os
 
 from xml.dom.minidom import parseString
 
+API_KEY = "IPHu87TGbu65ONB8"
+
 if len(sys.argv) < 3:
     print "usage: " + sys.argv[0] + " /path/to/Music7.db /path/to/CDArt/folder" 
     sys.exit(1);
@@ -15,7 +17,7 @@ except:
     print "Unable to open: " + sys.argv[1]
 
 
-# "http://www.xbmcstuff.com/music_scraper.php?&id_scraper=IPHu87TGbu65ONB8&t=artists"
+# "http://www.xbmcstuff.com/music_scraper.php?&id_scraper=" + API_KEY + "&t=artists"
 def grabXML(url):
     # Get something to work with.
     f = urllib.urlopen(url)
@@ -52,7 +54,7 @@ def cleanAlbum(artist, album):
 def grabArtists():
     print "grabArtists()"
     artists = dict()
-    dom = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=IPHu87TGbu65ONB8&t=artists")
+    dom = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=" + API_KEY + "&t=artists")
 
     artist_nodes = dom.getElementsByTagName("artist")
     for artist_node in artist_nodes:
@@ -64,7 +66,7 @@ def grabArtists():
 def grabAlbums(artist, artistId):
     print "grabAlbums("+artist+")"
     albums = dict()
-    domAlbum = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=IPHu87TGbu65ONB8&t=cdarts&id_artist=" + artistId)
+    domAlbum = grabXML("http://www.xbmcstuff.com/music_scraper.php?&id_scraper=" + API_KEY + "&t=cdarts&id_artist=" + artistId)
     cdarts = domAlbum.getElementsByTagName("cdart")
     for cdart in cdarts:
         albums[cleanAlbum(artist, cdart.getAttribute('album'))] = cdart.getElementsByTagName("picture")[0].childNodes[0].data
