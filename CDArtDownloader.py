@@ -1,3 +1,38 @@
+#!/usr/bin/env python
+#
+# YACDArtDownloader 
+# (c) Copyright 2010 by Camille Moncelier <moncelier@devlife.org>
+# http://devlife.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA
+#
+
+
+#
+# This source code is dirty, made in a couple of minutes and tuned 
+# to be able to download cdarts for my poorly tagged music collection
+# 
+# Currently I do not have time norr motivation to further enhance
+# hhis program. However, if you have any question regarding it, I'll
+# be pleased to help you.
+#
+# Camille.
+#
+
+API_KEY = "86vjb-6FIbvuy6V5"
+
 import sqlite3
 import sys
 import urllib
@@ -5,7 +40,6 @@ import re, os
 
 from xml.dom.minidom import parseString
 
-API_KEY = "86vjb-6FIbvuy6V5"
 
 if len(sys.argv) < 3:
     print "usage: " + sys.argv[0] + " /path/to/Music7.db /path/to/CDArt/folder" 
