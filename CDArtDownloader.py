@@ -5,7 +5,7 @@ import re, os
 
 from xml.dom.minidom import parseString
 
-API_KEY = "IPHu87TGbu65ONB8"
+API_KEY = "86vjb-6FIbvuy6V5"
 
 if len(sys.argv) < 3:
     print "usage: " + sys.argv[0] + " /path/to/Music7.db /path/to/CDArt/folder" 
